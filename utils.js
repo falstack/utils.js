@@ -1,9 +1,9 @@
 /**
- * [ timeLong 格式化 time 为 YYYY-MM-DD HH:mm 格式 ]
+ * [ timeFormat 格式化 time 为 YYYY-MM-DD HH:mm 格式 ]
  * @param time [ 时间戳或标准时间格式，如：Fri, 11 Aug 2017 18:06:04 CST +08:00 | 1502445964000 | 1502445964 ]
  * @returns {string}
  */
-export const timeLong = (time) => {
+export const timeFormat = (time) => {
   const formatTime = typeof time === 'number'
     ? time.toString().length === 13 ? time : time * 1000
     : time
@@ -12,12 +12,12 @@ export const timeLong = (time) => {
 }
 
 /**
- * [ timeFromNow 格式化文章发布时间 ]
- * [ 依赖 timeLong ]
+ * [ timeAgo 格式化文章发布时间 ]
+ * [ 依赖 timeFormat ]
  * @param time
  * @returns {string}
  */
-export const timeFromNow = (time) => {
+export const timeAgo = (time) => {
   const ctxTime = new Date(time)
   const curTime = new Date()
   const ctxTimestamp = ctxTime.getTime()
@@ -33,7 +33,7 @@ export const timeFromNow = (time) => {
     }
     return `${parseInt(delta / 3600, 10)}小时前`
   }
-  const compute = timeLong(ctxTimestamp).replace(/-/g, '.')
+  const compute = timeFormat(ctxTimestamp).replace(/-/g, '.')
   if (ctxTime.getFullYear() !== curTime.getFullYear()) {
     return compute // YYYY.MM.DD HH:mm (今年以前)
   } else if (deltaDay > 2) {
