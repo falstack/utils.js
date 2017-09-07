@@ -1,1 +1,1 @@
-JavaScript helper function collection
+# JavaScript helper function collection
