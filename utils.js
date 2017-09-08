@@ -43,3 +43,60 @@ export const timeAgo = (time) => {
   }
   return `昨天 ${compute.substr(11)}` // 昨天 HH:mm
 }
+
+export const canUseWebP = () => {
+  if (typeof window === 'undefined') {
+    return false
+  }
+
+  if (window.supportWebP !== undefined) {
+    return window.supportWebP
+  }
+
+  const ele = document.createElement('canvas')
+
+  if (ele.getContext && ele.getContext('2d')) {
+    return window.supportWebP = ele.toDataURL('image/webp').indexOf('data:image/webp') === 0
+  }
+
+  return false
+}
+
+export const getRGB = (image, blockSize = 5) => {
+  const rgb = { r: 0, g: 0, b: 0 }
+
+  if (typeof window === 'undefined') {
+    return rgb
+  }
+
+  const canvas = document.createElement('canvas')
+  const context = canvas.getContext && canvas.getContext('2d')
+
+  height = canvas.height = image.naturalHeight || image.offsetHeight || image.height
+  width = canvas.width = image.naturalWidth || image.offsetWidth || image.width
+
+  try {
+    context.drawImage(image, 0, 0, width, height)
+  } catch (e) {
+    return rgb
+  }
+  try {
+    data = context.getImageData(0, 0, width, height)
+  } catch (e) {
+    return rgb
+  }
+
+  length = data.data.length
+
+  while ((i += blockSize * 4) < length) {
+    ++count
+    rgb.r += data.data[i]
+    rgb.g += data.data[i + 1]
+    rgb.b += data.data[i + 2]
+  }
+
+  rgb.r = ~~(rgb.r / count)
+  rgb.g = ~~(rgb.g / count)
+  rgb.b = ~~(rgb.b / count)
+  return rgb
+}
