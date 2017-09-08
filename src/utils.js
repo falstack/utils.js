@@ -111,4 +111,13 @@ const strRepeat = (str, n) => new Array(n + 1).join(str)
 
 const strStat = (str) => str.split('').reduce((p, k) => (p[k]++ || (p[k] = 1), p), {})
 
-const debug = () => [].forEach.call($$('*'), (a) => {a.style.outline = '1px solid #' + (~~(Math.random()*(1 << 24))).toString(16)})
+const debug = () => [].forEach.call($$('*'), (a) => {a.style.outline = '1px solid #' + (~~(Math.random() * (1 << 24))).toString(16)})
+
+const parseCookie = (prototype = document.cookie, name) => {
+  const cookies = {};
+  prototype.split('; ').forEach(item => {
+    const temp = item.split('=')
+    cookies[temp[0]] = temp[1]
+  })
+  return name ? cookies[name] : cookies;
+}
