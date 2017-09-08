@@ -110,3 +110,5 @@ const getRating = (rating) => {
 const strRepeat = (str, n) => new Array(n + 1).join(str)
 
 const strStat = (str) => str.split('').reduce((p, k) => (p[k]++ || (p[k] = 1), p), {})
+
+const debug = () => [].forEach.call($$('*'), (a) => {a.style.outline = '1px solid #' + (~~(Math.random()*(1 << 24))).toString(16)})
