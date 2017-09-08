@@ -100,3 +100,13 @@ export const getRGB = (image, blockSize = 5) => {
   rgb.b = ~~(rgb.b / count)
   return rgb
 }
+
+
+const getRating = (rating) => {
+  if (rating > 5 || rating < 0) throw new Error('数字不在范围内');
+  return '★★★★★☆☆☆☆☆'.substring(5 - rating, 10 - rating);
+}
+
+const strRepeat = (str, n) => new Array(n + 1).join(str)
+
+const strStat = (str) => str.split('').reduce((p, k) => (p[k]++ || (p[k] = 1), p), {})
