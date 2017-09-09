@@ -121,3 +121,34 @@ const parseCookie = (prototype = document.cookie, name) => {
   })
   return name ? cookies[name] : cookies;
 }
+
+const eventManager = (function () {
+  class Manager {
+    constructor () {
+      this.id = 0
+      this.listeners = {}
+    }
+
+    add (ele, evt, handler, capture = false) {
+      const id = this.id++
+      ele.addEventListener(evt, handler, capture)
+      this.listeners[id] = {
+        element: ele,
+        event: evt,
+        handler,
+        capture
+      }
+      return id
+    }
+
+    del (id) {
+      if (this.listeners[id]) {
+        const h = this.listeners[id]
+        h.element.removeEventListener(h.event, h.handler, h.capture)
+        Reflect.deleteProperty(this.listeners, id)
+      }
+    }
+  }
+
+  return new Manager()
+}())
