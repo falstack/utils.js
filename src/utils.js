@@ -133,7 +133,7 @@ export const eventManager = (function () {
       const result = []
       events.forEach(e => {
         const id = this.id++
-        e.addEventListener(evt, handler, capture)
+        ele.addEventListener(e, handler, capture)
         this.listeners[id] = {
           element: ele,
           event: e,
