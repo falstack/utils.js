@@ -101,19 +101,18 @@ export const getRGB = (image, blockSize = 5) => {
   return rgb
 }
 
-
-const getRating = (rating) => {
+export const getRating = (rating) => {
   if (rating > 5 || rating < 0) throw new Error('数字不在范围内');
   return '★★★★★☆☆☆☆☆'.substring(5 - rating, 10 - rating);
 }
 
-const strRepeat = (str, n) => new Array(n + 1).join(str)
+export const strRepeat = (str, n) => new Array(n + 1).join(str)
 
-const strStat = (str) => str.split('').reduce((p, k) => (p[k]++ || (p[k] = 1), p), {})
+export const strStat = (str) => str.split('').reduce((p, k) => (p[k]++ || (p[k] = 1), p), {})
 
-const debug = () => [].forEach.call($$('*'), (a) => {a.style.outline = '1px solid #' + (~~(Math.random() * (1 << 24))).toString(16)})
+export const debug = () => [].forEach.call($$('*'), (a) => {a.style.outline = '1px solid #' + (~~(Math.random() * (1 << 24))).toString(16)})
 
-const parseCookie = (prototype = document.cookie, name) => {
+export const parseCookie = (prototype = document.cookie, name) => {
   const cookies = {};
   prototype.split('; ').forEach(item => {
     const temp = item.split('=')
@@ -122,7 +121,7 @@ const parseCookie = (prototype = document.cookie, name) => {
   return name ? cookies[name] : cookies;
 }
 
-const eventManager = (function () {
+export const eventManager = (function () {
   class Manager {
     constructor () {
       this.id = 0
@@ -152,3 +151,12 @@ const eventManager = (function () {
 
   return new Manager()
 }())
+
+export const shuffle = (array) => {
+  for (let i = array.length; i; i--) {
+    let j = Math.floor(Math.random() * i);
+    [array[i - 1], array[j]] = [array[j], array[i - 1]];
+  }
+
+  return array
+}
